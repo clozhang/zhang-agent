@@ -9,12 +9,11 @@
     :url  "http://www.apache.org/licenses/LICENSE-2.0"}
   :dependencies [
     [clojang/agent "0.4.0-SNAPSHOT"]
-    [clojang/jiface "0.4.0-SNAPSHOT"]
     [clojusc/trifl "0.1.0-SNAPSHOT"]
     [clojusc/twig "0.3.1"]
     [dire "0.5.4"]
     [org.clojure/core.async "0.3.442"]]
-  :manifest {"Premain-Class" "zhang.agent.startup"}
+  :manifest {"Premain-Class" "zhang.agent"}
   :aot :all
   :profiles {
     :testing {
