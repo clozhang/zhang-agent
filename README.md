@@ -1,9 +1,10 @@
-# agent
+# zhang-agent
+
 [![Build Status][travis-badge]][travis]
 [![Dependencies Status][deps-badge]][deps]
 [![Clojars Project][clojars-badge]][clojars]
 
-*Clojang Node and REPL Start-up*
+*Zhang Node and REPL Start-up*
 
 [![Clojang logo][logo]][logo-large]
 
@@ -17,10 +18,12 @@
 
 ## About [&#x219F;](#contents)
 
-The Clojang Agent is intended to perform one significant task and one minor one:
+The Zhang Agent is intended to perform several tasks for Zhang nodes:
 
 * Start up a JInterface node (in the same way that an Erlang shell or an LFE REPL when the BEAM is started in distributed mode, e.g., ``-sname mynode``)
-* Close the splash image that Clojang displays
+* Create a process-tracking table
+* XXX
+* Additionally, it closes the splash image that Clojang displays
 
 
 ## Usage [&#x219F;](#contents)
@@ -30,12 +33,12 @@ To use the agent, update your ``project.clj`` (either top-level or one of your p
 ```clj
   ...
   :dependencies [
-    [clojang/jiface "0.1.1"]
-    [clojang/agent "0.1.0"]
+    [clojang/zhang "0.1.0-SNAPSHOT"]
+    [clojang/zhang-agent "0.1.0-SNAPSHOT"]
     ...]
-  :jvm-opts ["-Dnode.sname=clojang"]
-  :java-agents [[clojang/agent "0.1.0"]]
-  :aot [clojang.agent.startup]
+  :jvm-opts ["-Dnode.sname=zhang"]
+  :java-agents [[clojang/zhang-agent "0.1.0-SNAPSHOT"]]
+  :aot [zhang.agent.startup]
   ...
 ```
 
@@ -43,7 +46,7 @@ To use the agent, update your ``project.clj`` (either top-level or one of your p
 ## License [&#x219F;](#contents)
 
 ```
-Copyright © 2016 Duncan McGreggor
+Copyright © 2016-2017 Duncan McGreggor
 
 Distributed under the Apache License Version 2.0.
 ```
@@ -51,11 +54,11 @@ Distributed under the Apache License Version 2.0.
 
 <!-- Named page links below: /-->
 
-[travis]: https://travis-ci.org/clojang/agent
-[travis-badge]: https://travis-ci.org/clojang/agent.png?branch=master
-[deps]: http://jarkeeper.com/clojang/agent
-[deps-badge]: http://jarkeeper.com/clojang/agent/status.svg
-[clojars]: https://clojars.org/clojang/agent
-[clojars-badge]: https://img.shields.io/clojars/v/clojang/agent.svg
+[travis]: https://travis-ci.org/clojang/zhang-agent
+[travis-badge]: https://travis-ci.org/clojang/zhang-agent.png?branch=master
+[deps]: http://jarkeeper.com/clojang/zhang-agent
+[deps-badge]: http://jarkeeper.com/clojang/zhang-agent/status.svg
+[clojars]: https://clojars.org/clojang/zhang-agent
+[clojars-badge]: https://img.shields.io/clojars/v/clojang/zhang-agent.svg
 [logo]: https://github.com/clojang/resources/blob/master/images/logo-5-250x.png
 [logo-large]: https://github.com/clojang/resources/blob/master/images/logo-5-1000x.png
