@@ -1,4 +1,5 @@
 (ns zhang.agent.processes
+  "Process-tracking for the Zhang agent."
   (:require [clojure.core.async :as async]))
 
 (defrecord ZhangProcessTable [chan data])
