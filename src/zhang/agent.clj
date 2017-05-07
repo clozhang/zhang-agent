@@ -13,12 +13,10 @@
   (:gen-class
     :methods [^:static [premain [String java.lang.instrument.Instrumentation] void]]))
 
-(def process-table (atom nil))
-
 (defn -premain
   [args instrument]
   (logger/set-level! '[clojang zhang] :info)
-  (reset! process-table (processes/create-process-table))
+  (reset! processes/process-table (processes/create-process-table))
   (zhang-startup/perform-node-tasks (agent/get-node-name))
   (if-not (agent/headless?)
     (clojang-startup/perform-gui-tasks)))
