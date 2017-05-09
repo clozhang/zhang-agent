@@ -6,7 +6,12 @@
             [clojusc.twig :as logger]
             [dire.core :refer [with-handler!]]
             [trifl.net :as net]
-            [zhang.agent.processes :as processes]))
+            [zhang.agent.process-table :as process-table]))
+
+(defn perform-management-tasks
+  ""
+  []
+  (process-table/create))
 
 (defn perform-node-tasks
   "This is the function that sets up a running node for a given JVM."
