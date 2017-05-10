@@ -10,7 +10,7 @@
   :dependencies [
     [clojang/agent "0.4.0-SNAPSHOT"]
     [clojusc/trifl "0.1.0-SNAPSHOT"]
-    [clojusc/twig "0.3.1"]
+    [clojusc/twig "0.3.1" :exclusions [org.clojure/tools.reader]]
     [dire "0.5.4"]
     [org.clojure/core.async "0.3.442"]]
   :manifest {"Premain-Class" "zhang.agent"}
@@ -20,8 +20,8 @@
           :themes [:rdash]
           :namespaces [#"^zhang\.(?!test)"]
           :metadata {:doc/format :markdown}}
-  :aot :all
   :profiles {
+    :uberjar {:aot :all}
     :docs {
       :dependencies [[codox-theme-rdash "0.1.2"]]
       :plugins [
