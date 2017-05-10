@@ -71,6 +71,8 @@ Now that you've spawned some processes, list them:
 ```clj
 zhang.dev=> (process-table/ls)
 
+total 2
+
 |                 :id |                    :fun |                                              :chan |
 |---------------------+-------------------------+----------------------------------------------------|
 | <hostname:123:1234> |   zhang.dev$printer$ptr | clojure.core.async.impl.channels.ManyToManyChannel |
@@ -115,6 +117,8 @@ zhang.dev=> (process/terminate counter-process)
 :terminated
 zhang.dev=> (process-table/ls)
 
+total 1
+
 |                 :id |                    :fun |                                              :chan |
 |---------------------+-------------------------+----------------------------------------------------|
 | <hostname:123:1234> |   zhang.dev$printer$ptr | clojure.core.async.impl.channels.ManyToManyChannel |
@@ -122,6 +126,8 @@ zhang.dev=> (process-table/ls)
 zhang.dev=> (process/terminate printer-process)
 :terminated
 zhang.dev=> (process-table/ls)
+
+total 0
 :ok
 ```
 
