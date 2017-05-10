@@ -22,8 +22,10 @@ The Zhang Agent is intended to perform several tasks for Zhang nodes:
 
 * Start up a JInterface node (in the same way that an Erlang shell or an LFE REPL when the BEAM is started in distributed mode, e.g., ``-sname mynode``)
 * Create a process-tracking table
-* XXX
-* Additionally, it closes the splash image that Clojang displays
+* Provide functions for maintaining processes in the process table, including
+  querying the table
+* Additionally, it closes the splash image that Clojang displays (if running in
+  GUI mode)
 
 
 ## Usage [&#x219F;](#contents)
@@ -40,6 +42,57 @@ To use the agent, update your ``project.clj`` (either top-level or one of your p
   :java-agents [[clojang/zhang-agent "0.1.0-SNAPSHOT"]]
   :aot [zhang.agent.startup]
   ...
+```
+
+In your project's REPL, you can then do something like the following:
+
+```clj
+(defn counter
+  [cnt msg]
+  (case (:type msg)
+    :inc (partial counter (inc cnt))
+    :get (do (process/! (:to msg) cnt)
+             (partial counter cnt))))
+
+(defn printer []
+  (process/spawn (fn ptr [msg]
+           (println "Got:" msg)
+           ptr)))
+
+(def printer-process (printer))
+
+(def counter-process (process/spawn (partial counter 0)))
+```
+```clj
+zhang.dev=> (process-table/ls)
+
+|                              :id |                                   :fun |                                                       :chan |
+|----------------------------------+----------------------------------------+-------------------------------------------------------------|
+| <hostname:123:1234> |   zhang.dev$printer$ptr | clojure.core.async.impl.channels.ManyToManyChannel |
+| <hostname:234:2345> | clojure.core$partial$fn | clojure.core.async.impl.channels.ManyToManyChannel |
+:ok
+```
+
+And, of course, you can use your functions :-)
+
+```clj
+zhang.dev=> (process/! counter-process {:type :get :to printer-process})
+trueGot:
+0
+zhang.dev=> (process/! counter-process {:type :inc})
+true
+zhang.dev=> (process/! counter-process {:type :get :to printer-process})
+Got: true1
+
+zhang.dev=> (process/! counter-process {:type :inc})
+true
+zhang.dev=> (process/! counter-process {:type :inc})
+true
+zhang.dev=> (process/! counter-process {:type :inc})
+true
+zhang.dev=> (process/! counter-process {:type :get :to printer-process})
+Got: 4
+true
 ```
 
 
