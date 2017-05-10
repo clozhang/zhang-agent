@@ -66,6 +66,8 @@ In your project's REPL, you can then do something like the following:
 
 (def counter-process (process/spawn (partial counter 0)))
 ```
+
+Now that you've spawned some processes, list them:
 ```clj
 zhang.dev=> (process-table/ls)
 
@@ -76,7 +78,7 @@ zhang.dev=> (process-table/ls)
 :ok
 ```
 
-And, of course, you can use your functions :-)
+And, of course, you can use your functions by sending them messages:
 
 ```clj
 zhang.dev=> (process/! counter-process {:type :get :to printer-process})
