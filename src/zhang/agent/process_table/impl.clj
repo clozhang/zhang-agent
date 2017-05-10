@@ -49,7 +49,7 @@
 
 (defn remove-p
   [this id]
-  (dissoc this [:data id]))
+  (update-in this [:data] dissoc id))
 
 (def process-table-behaviour
   {:get-processes get-p
