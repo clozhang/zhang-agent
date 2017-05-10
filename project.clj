@@ -17,13 +17,14 @@
   :codox {:output-path "docs/current"
           :doc-paths ["resources/docs"]
           :project {:name "zhang-agent"}
-          :themes [:rdash]
+          :themes [:clojang]
           :namespaces [#"^zhang\.(?!test)"]
           :metadata {:doc/format :markdown}}
   :profiles {
     :uberjar {:aot :all}
     :docs {
-      :dependencies [[codox-theme-rdash "0.1.2"]]
+      :aot :all
+      :dependencies [[clojang/codox-theme "0.2.0-SNAPSHOT"]]
       :plugins [
         [lein-codox "0.10.3"]
         [lein-simpleton "1.3.0"]]}
