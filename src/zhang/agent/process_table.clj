@@ -1,7 +1,7 @@
 (ns zhang.agent.process-table
   "Process-tracking for the Zhang agent."
   (:require [zhang.agent.process-table.impl :as process-table])
-  (:refer-clojure :exclude [empty? remove]))
+  (:refer-clojure :exclude [count empty? remove]))
 
 (def ^:dynamic *process-table* (atom nil))
 
