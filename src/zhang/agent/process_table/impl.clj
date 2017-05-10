@@ -1,7 +1,8 @@
 (ns zhang.agent.process-table.impl
   "Implementation of the process-tracking table for the Zhang agent."
   (:require [clojure.core.async :as async]
-            [clojure.pprint :as pprint]))
+            [clojure.pprint :as pprint])
+  (:refer-clojure :exclude [count empty?]))
 
 (defn table-printer
   "A convenience function for displying process data in an ASCII table."
@@ -10,6 +11,13 @@
 
 (defprotocol IProcessTable
   "The process table interface for Zhang."
+  (count
+    [this]
+    "Return the number of processes.")
+  (empty?
+    [this]
+    "Perform a boolean check on the process table; returns `true` if there are
+    no processes in the table.")
   (get-processes
     [this]
     "Get all processes from the process table.")
@@ -32,6 +40,14 @@
     all processes will be removed."))
 
 (defrecord ZhangProcessTable [chan data])
+
+(defn count-ps
+  [this]
+  (clojure.core/count (:data this)))
+
+(defn empty-ps?
+  [this]
+  (clojure.core/empty? (:data this)))
 
 (defn get-ps
   [this]
@@ -60,7 +76,9 @@
    (reduce remove-p this ids)))
 
 (def process-table-behaviour
-  {:get-processes get-ps
+  {:count count-ps
+   :empty? empty-ps?
+   :get-processes get-ps
    :list-processes list-ps
    :add-process add-p
    :lookup-process lookup-p
