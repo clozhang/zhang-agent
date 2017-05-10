@@ -13,6 +13,7 @@
 
 * [About](#about-)
 * [Usage](#usage-)
+* [Documentation](#documentation-)
 * [License](#license-)
 
 
@@ -137,6 +138,13 @@ this method (useful for resetting state during development):
 ```clj
 zhang.dev=> (process-table/remove-all)
 ```
+
+
+## Documentation [&#x219F;](#contents)
+
+The zhang-agent API reference is available here:
+
+ * http://clojang.github.io/zhang-agent
 
 
 ## License [&#x219F;](#contents)
