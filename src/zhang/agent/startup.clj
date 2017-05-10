@@ -1,11 +1,9 @@
 (ns zhang.agent.startup
   "Zhang agent startup."
-  (:require [clojang.agent.const :as const]
-            [clojang.agent.startup :as startup]
+  (:require ;[clojang.agent.const :as const]
+            ;[clojang.agent.startup :as startup]
             [clojure.tools.logging :as log]
-            [clojusc.twig :as logger]
-            [dire.core :refer [with-handler!]]
-            [trifl.net :as net]
+            ;[trifl.net :as net]
             [zhang.agent.process-table :as process-table]))
 
 (defn perform-management-tasks
