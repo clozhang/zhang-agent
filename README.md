@@ -4,7 +4,7 @@
 [![Dependencies Status][deps-badge]][deps]
 [![Clojars Project][clojars-badge]][clojars]
 
-*Zhang Node and REPL Start-up*
+*Zhang Node, REPL Start-up, and Zhang Process Table*
 
 [![Clojang logo][logo]][logo-large]
 
