@@ -15,3 +15,6 @@ local-standalone:
 
 clojars:
 	@lein deploy clojars
+
+clean:
+	@lein clean

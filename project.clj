@@ -14,15 +14,26 @@
     [dire "0.5.4"]
     [org.clojure/core.async "0.3.442"]]
   :manifest {"Premain-Class" "zhang.agent"}
+  :codox {:output-path "docs/current"
+          :doc-paths ["resources/docs"]
+          :project {:name "zhang-agent"}
+          :themes [:rdash]
+          :namespaces [#"^zhang\.(?!test)"]
+          :metadata {:doc/format :markdown}}
   :aot :all
   :profiles {
+    :docs {
+      :dependencies [[codox-theme-rdash "0.1.2"]]
+      :plugins [
+        [lein-codox "0.10.3"]
+        [lein-simpleton "1.3.0"]]}
     :testing {
-       :plugins
-         [[lein-ancient "0.6.10"]
-          [jonase/eastwood "0.2.3" :exclusions [org.clojure/clojure]]
-          [lein-bikeshed "0.4.1"]
-          [lein-kibit "0.1.3" :exclusions [org.clojure/clojure]]
-          [venantius/yagni "0.1.4"]]}
+       :plugins [
+         [lein-ancient "0.6.10"]
+         [jonase/eastwood "0.2.3" :exclusions [org.clojure/clojure]]
+         [lein-bikeshed "0.4.1"]
+         [lein-kibit "0.1.3" :exclusions [org.clojure/clojure]]
+         [venantius/yagni "0.1.4"]]}
     :dev {
       :dependencies [
         [org.clojure/tools.namespace "0.2.11"]]
