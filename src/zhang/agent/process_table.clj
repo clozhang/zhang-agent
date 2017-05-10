@@ -25,7 +25,8 @@
 (defn ls
   ""
   []
-  (process-table/list-processes @*process-table*))
+  (process-table/list-processes @*process-table*)
+  :ok)
 
 (defn add
   ""
