@@ -57,12 +57,12 @@ In your project's REPL, you can then do something like the following:
     :get (do (process/! (:to msg) cnt)
              (partial counter cnt))))
 
-(defn printer []
-  (process/spawn (fn ptr [msg]
-           (println "Got:" msg)
-           ptr)))
+(defn printer
+  [msg]
+  (println "Got:" msg)
+  printer)
 
-(def printer-process (printer))
+(def printer-process (process/spawn printer))
 
 (def counter-process (process/spawn (partial counter 0)))
 ```
@@ -123,6 +123,13 @@ zhang.dev=> (process/terminate printer-process)
 :terminated
 zhang.dev=> (process-table/ls)
 :ok
+```
+
+If you are sure you want to remove all processes from the table, you can use
+this method (useful for resetting state during development):
+
+```clj
+zhang.dev=> (process-table/remove-all)
 ```
 
 

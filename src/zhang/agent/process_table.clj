@@ -15,33 +15,44 @@
   It is intended that there will only be one process table per agent/node."
   []
   (reset! *process-table*
-          (process-table/new-table)))
+          (process-table/create)))
 
 (defn get-all
-  ""
+  "Get all processes from the process table."
   []
   (process-table/get-processes @*process-table*))
 
 (defn ls
-  ""
+  "Display all the processes in an ASCII-formatted table."
   []
   (process-table/list-processes @*process-table*)
   :ok)
 
 (defn add
-  ""
+  "Add a process to the process table."
   [process]
   (reset! *process-table*
           (process-table/add-process @*process-table* process))
   process)
 
 (defn lookup
-  ""
+  "Lookup a process by id."
   [id]
   (process-table/lookup-process @*process-table* id))
 
 (defn remove
-  ""
+  "Remove the process with the given id from the process table. If a list of
+  ids is passed instead, they will be removed from the process table."
   [id]
+  (if (seq? id)
+    (reset! *process-table*
+            (process-table/remove-processes @*process-table* id)))
+    (reset! *process-table*
+            (process-table/remove-process @*process-table* id)))
+
+(defn remove-all
+  "Remove the given process ids from the process table. If not ids are given,
+  all processes will be removed."
+  []
   (reset! *process-table*
-          (process-table/remove-process @*process-table* id)))
+          (process-table/remove-processes @*process-table*)))
