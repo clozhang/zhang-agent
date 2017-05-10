@@ -6,10 +6,16 @@
 (defn table-printer
   ""
   [data]
-  (pprint/print-table ["ID" "Function" "Channel"] data))
+  (pprint/print-table [:id :fun :chan] data))
 
 (defprotocol IProcessTable
   "The process table interface for Zhang."
+  (get-processes
+    [this]
+    "Get all processes.")
+  (list-processes
+    [this]
+    "List all processes.")
   (add-process
     [process]
     [this process]
@@ -18,9 +24,6 @@
     [id]
     [this id]
     "Lookup a process by id.")
-  (list-processes
-    [this]
-    "List all processes.")
   (remove-process
     [id]
     [this id]
@@ -28,26 +31,31 @@
 
 (defrecord ZhangProcessTable [chan data])
 
+(defn get-p
+  [this]
+  (vals (:data this)))
+
 (defn list-p
   [this]
-  (table-printer (vals this)))
+  (table-printer (get-p this)))
 
 (defn add-p
   [this process]
-  (assoc this (:id process) process))
+  (assoc-in this [:data (:id process)] process))
 
 (defn lookup-p
   [this id]
-  (get this id))
+  (get-in this [:data id]))
 
 (defn remove-p
   [this id]
-  (dissoc this id))
+  (dissoc this [:data id]))
 
 (def process-table-behaviour
-  {:add-process add-p
-   :lookup-process lookup-p
+  {:get-processes get-p
    :list-processes list-p
+   :add-process add-p
+   :lookup-process lookup-p
    :remove-process remove-p})
 
 (extend ZhangProcessTable
