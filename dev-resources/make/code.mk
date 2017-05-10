@@ -8,10 +8,10 @@ show-versions:
 	@echo lein/JVM: $(shell lein version)
 
 local:
-	lein jar && lein install
+	@lein jar && lein install
 
 local-standalone:
-	lein uberjar && install
+	@lein uberjar && lein install
 
 clojars:
 	@lein deploy clojars

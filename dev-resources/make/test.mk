@@ -13,7 +13,9 @@ yagni:
 eastwood:
 	@EW_OPTS="{:namespaces [:source-paths]}" make base-eastwood
 
-lint: kibit eastwood bikeshed yagni
+lint: kibit eastwood
+
+lint-all: lint bikeshed yagni
 
 lint-unused:
 	@EW_OPTS="{:linters [:unused-fn-args :unused-locals :unused-namespaces :unused-private-vars :wrong-ns-form] :namespaces [:source-paths]}" make base-eastwood
@@ -21,8 +23,8 @@ lint-unused:
 lint-ns:
 	@EW_OPTS="{:linters [:unused-namespaces :wrong-ns-form] :namespaces [:source-paths]}" make base-eastwood
 
-check: lint
-	@lein test
+check: local-standalone lint
+	@lein with-profile +testing test
 
 ancient:
 	@lein with-profile +testing ancient check.check-profiles
