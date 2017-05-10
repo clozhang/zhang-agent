@@ -47,6 +47,9 @@ To use the agent, update your ``project.clj`` (either top-level or one of your p
 In your project's REPL, you can then do something like the following:
 
 ```clj
+(require '[zhang.agent.process-table :as process-table]
+         '[zhang.process :as process])
+
 (defn counter
   [cnt msg]
   (case (:type msg)
@@ -66,8 +69,8 @@ In your project's REPL, you can then do something like the following:
 ```clj
 zhang.dev=> (process-table/ls)
 
-|                              :id |                                   :fun |                                                       :chan |
-|----------------------------------+----------------------------------------+-------------------------------------------------------------|
+|                 :id |                    :fun |                                              :chan |
+|---------------------+-------------------------+----------------------------------------------------|
 | <hostname:123:1234> |   zhang.dev$printer$ptr | clojure.core.async.impl.channels.ManyToManyChannel |
 | <hostname:234:2345> | clojure.core$partial$fn | clojure.core.async.impl.channels.ManyToManyChannel |
 :ok
@@ -77,13 +80,14 @@ And, of course, you can use your functions :-)
 
 ```clj
 zhang.dev=> (process/! counter-process {:type :get :to printer-process})
-trueGot:
+true
+Got:
 0
 zhang.dev=> (process/! counter-process {:type :inc})
 true
 zhang.dev=> (process/! counter-process {:type :get :to printer-process})
-Got: true1
-
+Got: 1
+true
 zhang.dev=> (process/! counter-process {:type :inc})
 true
 zhang.dev=> (process/! counter-process {:type :inc})
