@@ -36,10 +36,10 @@ To use the agent, update your ``project.clj`` (either top-level or one of your p
   ...
   :dependencies [
     [clojang/zhang "0.1.0-SNAPSHOT"]
-    [clojang/zhang-agent "0.1.0-SNAPSHOT"]
+    [clojang/zhang-agent "0.2.0-SNAPSHOT"]
     ...]
   :jvm-opts ["-Dnode.sname=zhang"]
-  :java-agents [[clojang/zhang-agent "0.1.0-SNAPSHOT"]]
+  :java-agents [[clojang/zhang-agent "0.2.0-SNAPSHOT"]]
   :aot [zhang.agent.startup]
   ...
 ```
@@ -47,8 +47,8 @@ To use the agent, update your ``project.clj`` (either top-level or one of your p
 In your project's REPL, you can then do something like the following:
 
 ```clj
-(require '[zhang.agent.process-table :as process-table]
-         '[zhang.process :as process])
+(require '[zhang.process :as process]
+         '[zhang.process.table :as process-table])
 
 (defn counter
   [cnt msg]
@@ -78,6 +78,13 @@ zhang.dev=> (process-table/ls)
 :ok
 ```
 
+There is also a `process-table/get-all` function that will return the process
+table data structure. Alternatively, to get the data for a single process:
+
+```clj
+(process-table/lookup "<hostname:123:1234>")
+```
+
 And, of course, you can use your functions by sending them messages:
 
 ```clj
@@ -99,6 +106,23 @@ true
 zhang.dev=> (process/! counter-process {:type :get :to printer-process})
 Got: 4
 true
+```
+
+Finally, termination:
+
+```clj
+zhang.dev=> (process/terminate counter-process)
+:terminated
+zhang.dev=> (process-table/ls)
+
+|                 :id |                    :fun |                                              :chan |
+|---------------------+-------------------------+----------------------------------------------------|
+| <hostname:123:1234> |   zhang.dev$printer$ptr | clojure.core.async.impl.channels.ManyToManyChannel |
+:ok
+zhang.dev=> (process/terminate printer-process)
+:terminated
+zhang.dev=> (process-table/ls)
+:ok
 ```
 
 
