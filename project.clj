@@ -1,4 +1,4 @@
-(defproject clojang/zhang-agent "0.2.0-SNAPSHOT"
+(defproject clojang/zhang-agent "0.3.0-SNAPSHOT"
   :description "Zhang Node, REPL Start-up, and Zhang Process Table"
   :url "https://github.com/clojang/zhang-agent"
   :scm {
